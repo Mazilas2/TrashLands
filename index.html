@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>My First Web Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="Container">
+            <div class="LeftArea grid-item">
+                <!--Zone with button to adding images-->
+                <div class="AddImage">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Добавить фотографии</button>
+                </div>
+            </div>
+            <div class="LeftAreaResult grid-item">
+                <!--Zone with added photos-->
+                Добавленные фотографии:
+                <div class="sampleResult">
+                    <img src="" alt="SampleResult">
+                </div>
+                <div class="sampleResult">
+                    <img src="" alt="SampleResult">
+                </div>
+                <div class="sampleResult">
+                    <img src="" alt="SampleResult">
+                </div>
+            </div>
+            
+            <div class="ResultArea grid-item">
+                <p>
+                    Результат:
+                    <div class="sampleResult">
+                        <img src="" alt="SampleResult">
+                    </div>
+                    <div class="sampleResult">
+                        <img src="" alt="SampleResult">
+                    </div>
+                    <div class="sampleResult">
+                        <img src="" alt="SampleResult">
+                    </div>
+                    <div class="sampleResult">
+                        <img src="" alt="SampleResult">
+                    </div>
+                </p>
+            </div>
+            <div class="MetricArea grid-item">
+                <p>
+                    Метрика:
+                    <div class="sampleMetric">
+                        Метод скользящего окна
+                        <table>
+                            <tr><td>Presicion</td></tr>
+                            <tr><td>Recall</td></tr>
+                            <tr><td>F1</td></tr>
+                        </table>
+                    </div>
+                    <div class="sampleMetric">
+                        Region Proposals
+                        <table>
+                            <tr><td>Presicion</td></tr>
+                            <tr><td>Recall</td></tr>
+                            <tr><td>F1</td></tr>
+                        </table>
+                    </div>
+                    <div class="sampleMetric">
+                        Single Shot Detection
+                        <table>
+                            <tr><td>Presicion</td></tr>
+                            <tr><td>Recall</td></tr>
+                            <tr><td>F1</td></tr>
+                        </table>
+                    </div>
+                    <div class="sampleMetric">
+                        Transformers
+                        <table>
+                            <tr><td>Presicion</td></tr>
+                            <tr><td>Recall</td></tr>
+                            <tr><td>F1</td></tr>
+                        </table>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <script>
+            require('./render.js')
+        </script>
+    </body>
+</html>
