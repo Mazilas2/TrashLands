@@ -6,7 +6,11 @@ const {app, BrowserWindow} = electron;
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({ width: 1600, height: 900 });
+    win = new BrowserWindow({ 
+        width: 1600, 
+        height: 900,
+        show: false
+    });
     
     win.loadURL(
         url.format({
@@ -19,6 +23,7 @@ function createWindow() {
     win.on('closed', () => {
         win = null;
     });
+    win.once('ready-to-show', win.show);
 }
 
 app.on('ready', createWindow);

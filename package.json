@@ -69,11 +69,7 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "start": "electron-forge start",
-    "publish": "electron-forge publish",
-    "package": "electron-forge package",
-    "build": "electron-packager .",
-    "make": "electron-forge make"
+    "start": "electron ."
   },
   "author": "Mazilas2",
   "license": "MIT",
