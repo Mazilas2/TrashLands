@@ -52,9 +52,8 @@ def train(filePaths):
         for point in points[i]:
             cv.circle(images[i], (int(point[0]), int(point[1])), 10, (0, 255, 0), 2)
     # Show images
-    #for i in range(len(images)):
-    #    cv.imshow('Image ' + str(i), images[i])
-    #cv.waitKey(0)
+    for i in range(len(images)):
+        cv.imshow('Image ' + str(i), images[i])
+    cv.waitKey(0)
     # Return list of images with circles around keypoints
-    _, buffer = cv.imencode('.png', images)
-    return buffer.tobytes()
+    
