@@ -6,8 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>My First Web Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
         <script src="main.js"></script>
     </head>
@@ -15,7 +15,7 @@
         <div class="Container">
             <div class="LeftArea grid-item">
                 <!--Zone with button to adding images-->
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
                     <div class="input-file-row">
                         <label class="input-file">
                                <input type="file" name="file[]" multiple accept="image/*">		
@@ -23,23 +23,14 @@
                          </label>
                         <div class="input-file-list"></div>  
                     </div>
-                    <button type="submit" class="submitButton" id="submit">Запустить</button>
+                    <button type="submit" class="submitButton" id="submitButton">Запустить</button>
                 </form>
-                
+                <script src="renderer.js"></script>
             </div>
             
             <div class="ResultArea grid-item">
                 <p>
                     Результат:
-                    <div class="sampleResult">
-                        <img src="" alt="SampleResult">
-                    </div>
-                    <div class="sampleResult">
-                        <img src="" alt="SampleResult">
-                    </div>
-                    <div class="sampleResult">
-                        <img src="" alt="SampleResult">
-                    </div>
                     <div class="sampleResult">
                         <img src="" alt="SampleResult">
                     </div>
@@ -83,8 +74,5 @@
                 </p>
             </div>
         </div>
-        <script>
-            require('./render.js')
-        </script>
     </body>
 </html>
