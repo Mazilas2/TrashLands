@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@electron-forge/publisher-github": "^6.1.1",
-    "electron-prebuilt-compile": "24.0.0"
+    "electron-prebuilt-compile": "^8.2.0"
   },
   "name": "app",
   "version": "1.0.0",
@@ -69,7 +69,9 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "packager": "electron-packager . myApp --platform=win32 --arch=x64 --out dist/ --overwrite",
+    "build": "npm run packager"
   },
   "author": "Mazilas2",
   "license": "MIT",
