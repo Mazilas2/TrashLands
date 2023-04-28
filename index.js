@@ -27,7 +27,7 @@ function createWindow() {
         slashes: true
         })
     );
-    const serverProcess = spawn('python', ['-u', path.join(__dirname, 'app.py')]);
+    const serverProcess = spawn('python', ['-u', path.join(__dirname, 'py/app.py')]);
     serverProcess.stdout.on('data', (data) => {
         console.log(data.toString());
       });
@@ -58,14 +58,5 @@ app.on('ready', () =>
 app.on('window-all-closed', () => {
         app.quit();
 });
-
-ipcMain.on('files', (event, arg) => {
-    PythonShell.run('app.py', null, function (err, results) {
-        console.log('finished');
-        console.log(results);
-    });
-});
-
-
 
 

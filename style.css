@@ -184,6 +184,7 @@ body {
     overflow: auto;
     align-items: center;
     overflow-y: hidden;
+    gap: 20px;
 }
 
 .ResultArea p {

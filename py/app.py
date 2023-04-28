@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import os
 
 from train import train
@@ -11,9 +11,11 @@ def upload_file():
     # Get data from body
     file_data = request.get_data()
     result = train(file_data)
-    data = {'result': result}
-    json_data = json.dumps(data)
-    return json_data
+    imgs = []
+    for img in result:
+        imgs.append(img)
+    return jsonify(imgs)
+
     
 
 

@@ -1,20 +1,17 @@
 import cv2 as cv
 import numpy as np
+from flask import Flask, request, jsonify
 import json
+import base64
 
-# Read image from folder /Water Trash Dataset/images/train
-# and convert to grayscale
-#
 
 def train(filePaths):
-    # Filepath = '../Water Trash Dataset/images/train'
     filePaths = filePaths.decode('utf-8')
     filePaths = json.loads(filePaths)
     filePaths = filePaths['file_paths']
     images = []
     for filePath in filePaths:
         image = cv.imread(filePath)
-        image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         images.append(image)
     # Create matcher
     matcher = cv.BFMatcher(cv.NORM_HAMMING, crossCheck=True)
@@ -50,10 +47,13 @@ def train(filePaths):
     # Show circles around keypoints
     for i in range(len(images)):
         for point in points[i]:
-            cv.circle(images[i], (int(point[0]), int(point[1])), 10, (0, 255, 0), 2)
-    # Show images
-    for i in range(len(images)):
-        cv.imshow('Image ' + str(i), images[i])
-    cv.waitKey(0)
-    # Return list of images with circles around keypoints
-    
+            # Red circle
+            # Smaller size of line
+            cv.circle(images[i], (int(point[0]), int(point[1])), 10, (0, 0, 255), 1)
+    # Convert images to base64 strings
+    result = []
+    for img in images:
+        retval, buffer = cv.imencode('.jpg', img)
+        img_str = base64.b64encode(buffer).decode('utf-8')
+        result.append(img_str)
+    return result

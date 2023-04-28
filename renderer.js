@@ -75,14 +75,29 @@ function submitFunc()
       body: JSON.stringify({file_paths: file_paths}),
     })
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      const result = document.getElementById('result');
-      result.innerHTML = data.result;
-    })
-    .catch(error => {
-      console.error(error);
-    });
+	.then(data => {
+		var images = data;
+		var resultArea = document.getElementById("resultArea");
+		console.log(images.length);
+		for (let i = 0; i < images.length; i++) {
+			var imgEncoded = images[i];
+			var binaryString = atob(imgEncoded);
+			var bytes = new Uint8Array(binaryString.length);
+			for (var j = 0; j < binaryString.length; j++) {
+				bytes[j] = binaryString.charCodeAt(j);
+			}
+			var blob = new Blob([bytes], { type: 'image/jpeg' });
+			var url = URL.createObjectURL(blob);
+			var img = new Image();
+			img.src = url;
+			img.style.width = "100%";
+			img.style.height = "100%";
+			resultArea.appendChild(img);
+		}
+	})
+	.catch(error => {
+		console.error(error);
+	});
 }
  
 
