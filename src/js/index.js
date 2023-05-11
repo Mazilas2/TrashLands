@@ -22,12 +22,12 @@ function createWindow() {
     
     win.loadURL(
         url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, '../html/index.html'),
         protocol: 'file:',
         slashes: true
         })
     );
-    const serverProcess = spawn('python', ['-u', path.join(__dirname, 'py/app.py')]);
+    const serverProcess = spawn('python', ['-u', path.join(__dirname, '../../py/app.py')]);
     serverProcess.stdout.on('data', (data) => {
         console.log(data.toString());
       });

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>My First Web Page</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="../../dist/output.css">
+    </head>
+    <body>
+        <div class="Container">
+            <div class="LeftArea grid-item">
+                <!--Zone with button to adding images-->
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
+                    <div class="input-file-row">
+                        <label class="input-file">
+                               <input type="file" name="file[]" multiple accept="image/*">		
+                               <span>Выберите файл</span>
+                         </label>
+                        <div class="input-file-list"></div>  
+                    </div>
+                    <button type="submit" class="submitButton" id="submitButton">Запустить</button>
+                </form>
+                <script src="../js/renderer.js"></script>
+            </div>
+            
+            <div class="ResultArea grid-item" id = "resultArea">
+                <p>
+                    Результат:
+                </p>
+            </div>
+            <div class="MetricArea grid-item">
+                Метрика:
+                <table>
+                    <thead>
+                        <tr>
+                            <td>
+                                Метод скользящего окна
+                            </td>
+                            <td>
+                                Region Proposals
+                            </td>
+                            <td>
+                                Single Shot Detection
+                            </td>
+                            <td>
+                                Transformers
+                            </td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Presicion</td>
+                            <td>Presicion</td>
+                            <td>Presicion</td>
+                            <td>Presicion</td>
+                        </tr>
+                        <tr>
+                            <td>Recall</td>
+                            <td>Recall</td>
+                            <td>Recall</td>
+                            <td>Recall</td>
+                        </tr>
+                        <tr>
+                            <td>F1</td>
+                            <td>F1</td>
+                            <td>F1</td>
+                            <td>F1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
