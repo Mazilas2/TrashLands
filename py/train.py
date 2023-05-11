@@ -3,27 +3,57 @@ import numpy as np
 from flask import Flask, request, jsonify
 import json
 import base64
-from ultralytics import YOLO
 
 
-def train():
-    model = YOLO('yolov8n.pt')
-    results = model.train(
-        data='Water Trash Dataset/data.yaml',
-        imgsz=640,
-        epochs=100,
-        batch=16,
-        name='yolov8n_custom'
-    )
-
-
-def predict():
-    model = YOLO('runs/detect/yolov8n_custom0005/weights/best.pt')
-    # Confidence Threshold = 5%
-    # Overlap Threshold = 20%
-    results = model.predict(
-        "C:/Datasets/test3.jpg",
-        conf=0.05,
-        iou=0.2,
-        save=True
-    )
+def train(filePaths):
+    filePaths = filePaths.decode('utf-8')
+    filePaths = json.loads(filePaths)
+    filePaths = filePaths['file_paths']
+    images = []
+    for filePath in filePaths:
+        image = cv.imread(filePath)
+        images.append(image)
+    # Create matcher
+    matcher = cv.BFMatcher(cv.NORM_HAMMING, crossCheck=True)
+    # Create ORB object
+    orb = cv.ORB_create()
+    # Create list of keypoints and descriptors for each image
+    keypoints = []
+    descriptors = []
+    for image in images:
+        kp, des = orb.detectAndCompute(image, None)
+        keypoints.append(kp)
+        descriptors.append(des)
+    # Create list of matches for each image
+    matches = []
+    for i in range(len(images)):
+        match = matcher.match(descriptors[i], descriptors[i])
+        matches.append(match)
+    # Create list of good matches for each image
+    good_matches = []
+    for i in range(len(images)):
+        good_match = []
+        for match in matches[i]:
+            if match.distance < 30:
+                good_match.append(match)
+        good_matches.append(good_match)
+    # Create list of points for each image
+    points = []
+    for i in range(len(images)):
+        point = []
+        for match in good_matches[i]:
+            point.append(keypoints[i][match.queryIdx].pt)
+        points.append(point)
+    # Show circles around keypoints
+    for i in range(len(images)):
+        for point in points[i]:
+            # Red circle
+            # Smaller size of line
+            cv.circle(images[i], (int(point[0]), int(point[1])), 10, (0, 0, 255), 1)
+    # Convert images to base64 strings
+    result = []
+    for img in images:
+        retval, buffer = cv.imencode('.jpg', img)
+        img_str = base64.b64encode(buffer).decode('utf-8')
+        result.append(img_str)
+    return result
