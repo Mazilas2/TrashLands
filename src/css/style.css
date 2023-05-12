@@ -21,7 +21,7 @@
     }
 
     .input-file-list {
-        height: 80vh;
+        /*height: 80vh;*/
         overflow: auto;
     }
 
@@ -145,11 +145,8 @@
         color: #59be6e;
     }
 
-    .Container {  display: grid;
-        grid-template-columns: 0.5fr 1.5fr;
-        grid-template-rows: 0.6fr 1fr;
-        grid-auto-columns: 1fr;
-        gap: 0px 0px;
+    .Container {
+        display: grid;
         width: 100%;
         height: 100%;
         grid-auto-flow: row;
@@ -170,9 +167,6 @@
 
     .LeftArea {
         grid-area: LeftArea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .LeftAreaResult {

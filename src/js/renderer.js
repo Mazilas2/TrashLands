@@ -43,7 +43,7 @@ function funcAddFiles()
 		};
 		this.files = dt.files;
 		if (dt.files.length > 0) {
-			submitButton.style.display = "block";
+			submitButton.style.display = "flex";
 		}
 	});
 }

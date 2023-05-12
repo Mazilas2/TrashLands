@@ -13,12 +13,12 @@
             <div class="LeftArea grid-item">
                 <!--Zone with button to adding images-->
                 <form method="post" enctype="multipart/form-data" id="uploadForm">
-                    <div class="input-file-row">
+                    <div>
                         <label class="input-file">
-                               <input type="file" name="file[]" multiple accept="image/*">		
+                               <input type="file" name="file[]" multiple accept="image/*">
                                <span>Выберите файл</span>
                          </label>
-                        <div class="input-file-list"></div>  
+                        <div class="input-file-list"></div>
                     </div>
                     <button type="submit" class="submitButton" id="submitButton">Запустить</button>
                 </form>
@@ -32,19 +32,19 @@
             </div>
             <div class="MetricArea grid-item">
                 Метрика:
-                <table>
+                <table class="bg-white text-black">
                     <thead>
                         <tr>
-                            <td>
+                            <td class="border border-2 border-black">
                                 Метод скользящего окна
                             </td>
-                            <td>
+                            <td class="border border-2 border-black">
                                 Region Proposals
                             </td>
-                            <td>
+                            <td class="border border-2 border-black">
                                 Single Shot Detection
                             </td>
-                            <td>
+                            <td class="border border-2 border-black">
                                 Transformers
                             </td>
                         </tr>
@@ -52,22 +52,22 @@
 
                     <tbody>
                         <tr>
-                            <td>Presicion</td>
-                            <td>Presicion</td>
-                            <td>Presicion</td>
-                            <td>Presicion</td>
+                            <td class="border border-2 border-black">Presicion</td>
+                            <td class="border border-2 border-black">Presicion</td>
+                            <td class="border border-2 border-black">Presicion</td>
+                            <td class="border border-2 border-black">Presicion</td>
                         </tr>
                         <tr>
-                            <td>Recall</td>
-                            <td>Recall</td>
-                            <td>Recall</td>
-                            <td>Recall</td>
+                            <td class="border border-2 border-black">Recall</td>
+                            <td class="border border-2 border-black">Recall</td>
+                            <td class="border border-2 border-black">Recall</td>
+                            <td class="border border-2 border-black">Recall</td>
                         </tr>
                         <tr>
-                            <td>F1</td>
-                            <td>F1</td>
-                            <td>F1</td>
-                            <td>F1</td>
+                            <td class="border border-2 border-black">F1</td>
+                            <td class="border border-2 border-black">F1</td>
+                            <td class="border border-2 border-black">F1</td>
+                            <td class="border border-2 border-black">F1</td>
                         </tr>
                     </tbody>
                 </table>
