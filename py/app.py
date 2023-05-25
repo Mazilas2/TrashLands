@@ -1,8 +1,10 @@
 import json
 from flask import Flask, request, jsonify
+from ultralytics import YOLO
 import os
 
-from train import train
+from train import Predict, PredictAnnot
+
 
 app = Flask(__name__)
 
@@ -10,11 +12,21 @@ app = Flask(__name__)
 def upload_file():
     # Get data from body
     file_data = request.get_data()
-    result = train(file_data)
+    result = Predict(file_data)
     imgs = []
     for img in result:
         imgs.append(img)
     return jsonify(imgs)
+
+@app.route('/uploadAnnot', methods=['POST'])
+def upload_annot():
+    # Get data from body
+    file_data = request.get_data()
+    result = PredictAnnot(file_data)
+    return jsonify(result)
+    
+
+
 
     
 

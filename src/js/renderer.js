@@ -25,6 +25,7 @@ function funcAddFiles()
 	$('.input-file input[type=file]').on('change', function(){
 		let $files_list = $(this).closest('.input-file').next();
 		$files_list.empty();
+		dt.items.clear();
 		for(var i = 0; i < this.files.length; i++)
 		{
 			let file = this.files.item(i);
@@ -41,7 +42,6 @@ function funcAddFiles()
 				$files_list.append(new_file_input); 
 			}
 		};
-		this.files = dt.files;
 		if (dt.files.length > 0) {
 			submitButton.style.display = "flex";
 		}
@@ -67,37 +67,82 @@ function removeFilesItem(target)
 function submitFunc()
 {
   var file_paths = [];
+  var txt_selected = false;
+  // Check if each image have .txt annotation file
   for (let i = 0; i < dt.files.length; i++) {
-    file_paths.push(dt.files[i].path);
+	if (dt.files[i].path.endsWith('.jpg')) 
+	{
+    	file_paths.push(dt.files[i].path);
+	}
+	else if (dt.files[i].path.endsWith('.txt'))
+	{
+		txt_selected = true;
+		file_paths.push(dt.files[i].path);
+	}
   }
-  this.fetch('http://127.0.0.1:5000/upload', {
-      method: 'POST',
-      body: JSON.stringify({file_paths: file_paths}),
-    })
-    .then(response => response.json())
-	.then(data => {
-		var images = data;
-		var resultArea = document.getElementById("resultArea");
-		console.log(images.length);
-		for (let i = 0; i < images.length; i++) {
-			var imgEncoded = images[i];
-			var binaryString = atob(imgEncoded);
-			var bytes = new Uint8Array(binaryString.length);
-			for (var j = 0; j < binaryString.length; j++) {
-				bytes[j] = binaryString.charCodeAt(j);
+  if (!txt_selected) 
+  {
+	this.fetch('http://127.0.0.1:5000/upload', {
+		method: 'POST',
+		body: JSON.stringify({file_paths: file_paths}),
+		})
+		.then(response => response.json())
+		.then(data => {
+			var images = data;
+			var resultArea = document.getElementById("resultArea");
+			while (resultArea.firstChild) {
+				resultArea.removeChild(resultArea.firstChild);
 			}
-			var blob = new Blob([bytes], { type: 'image/jpeg' });
-			var url = URL.createObjectURL(blob);
-			var img = new Image();
-			img.src = url;
-			img.style.width = "100%";
-			img.style.height = "100%";
-			resultArea.appendChild(img);
-		}
-	})
-	.catch(error => {
-		console.error(error);
-	});
+			for (let i = 0; i < images.length; i++) {
+				var imgEncoded = images[i];
+				var binaryString = atob(imgEncoded);
+				var bytes = new Uint8Array(binaryString.length);
+				for (var j = 0; j < binaryString.length; j++) {
+					bytes[j] = binaryString.charCodeAt(j);
+				}
+				var blob = new Blob([bytes], { type: 'image/jpeg' });
+				var url = URL.createObjectURL(blob);
+				var img = new Image();
+				img.src = url;
+				resultArea.appendChild(img);
+			}
+		})
+		.catch(error => {
+			console.error(error);
+		});
+	} else {
+		this.fetch('http://127.0.0.1:5000/uploadAnnot', {
+			method: 'POST',
+			body: JSON.stringify({file_paths: file_paths}),
+			})
+			.then(response => response.json())
+			.then(data => {
+				var images = data;
+				console.log(images);
+				var resultArea = document.getElementById("resultArea");
+				while (resultArea.firstChild) {
+					resultArea.removeChild(resultArea.firstChild);
+				}
+				for (let i = 0; i < images.length; i++) {
+					var imgEncoded = images[i];
+					var binaryString = atob(imgEncoded);
+					var bytes = new Uint8Array(binaryString.length);
+					for (var j = 0; j < binaryString.length; j++) {
+						bytes[j] = binaryString.charCodeAt(j);
+					}
+					var blob = new Blob([bytes], { type: 'image/jpeg' });
+					var url = URL.createObjectURL(blob);
+					var img = new Image();
+					img.src = url;
+					img.style.width = "100%";
+					img.style.height = "100%";
+					resultArea.appendChild(img);
+				}
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}
 }
  
 
