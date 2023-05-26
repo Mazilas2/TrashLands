@@ -22,7 +22,7 @@ def upload_file():
 def upload_annot():
     # Get data from body
     file_data = request.get_data()
-    result = PredictAnnot(file_data)
+    result, metrics = PredictAnnot(file_data)
     return jsonify(result)
     
 

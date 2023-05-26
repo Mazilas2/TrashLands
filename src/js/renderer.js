@@ -28,7 +28,18 @@ function funcAddFiles()
 		for(var i = 0; i < this.files.length; i++)
 		{
 			let file = this.files.item(i);
-			dt.items.add(file);    
+			// Do not add if file already exists
+			let file_exists = false;
+			for(let j = 0; j < dt.files.length; j++){
+				if(file.name === dt.files[j].name){
+					file_exists = true;
+				}
+			}
+			if(file_exists){
+				continue;
+			} else {
+				dt.items.add(file);    
+			}
 		};
 		for (var i = 0; i < dt.files.length; i++) {
 			let file = dt.files.item(i);
@@ -113,6 +124,7 @@ function submitFunc()
 			console.error(error);
 		});
 	} else {
+		file_paths.sort();
 		this.fetch('http://127.0.0.1:5000/uploadAnnot', {
 			method: 'POST',
 			body: JSON.stringify({file_paths: file_paths}),
