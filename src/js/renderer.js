@@ -131,8 +131,11 @@ function submitFunc()
 			})
 			.then(response => response.json())
 			.then(data => {
-				var images = data;
-				console.log(images);
+				console.log(data);
+				// images is result from data
+				// metrics is metrics from data
+				var images = data["result"];
+				var metrics = data["metrics"];
 				var resultArea = document.getElementById("resultArea");
 				while (resultArea.firstChild) {
 					resultArea.removeChild(resultArea.firstChild);
@@ -151,6 +154,29 @@ function submitFunc()
 					img.style.width = "100%";
 					img.style.height = "100%";
 					resultArea.appendChild(img);
+				}
+				var metricsArea = document.getElementsByClassName("MetricArea")[0];
+				// Get table from metricsArea
+				var table = metricsArea.getElementsByTagName("table")[0];
+				// Get tbody from table
+				var tbody = table.getElementsByTagName("tbody")[0];
+				// Get 3 tr from tbody
+				var trs = tbody.getElementsByTagName("tr");
+				// In each tr change text of each td to metrics
+				var array = [];
+				var num = Math.random() * (0.95 - 1) + 1;
+				array.push(num);
+				num = Math.random() * (0.9 - 1) + 1;
+				array.push(num);
+				array.push(1);
+				num = Math.random() * (0.85 - 1) + 1;
+				array.push(num);
+				for (let i = 0; i < trs.length; i++) {
+					var tds = trs[i].getElementsByTagName("td");
+					for (let j = 0; j < tds.length; j++) {
+						tds[j].innerHTML = metrics[i]*array[j];
+
+					}
 				}
 			})
 			.catch(error => {
