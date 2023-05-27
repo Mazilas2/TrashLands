@@ -46,10 +46,14 @@ function funcAddFiles()
 			let file = dt.files.item(i);
 			let reader = new FileReader();
 			reader.readAsDataURL(file);
+			console.log(file.name)
+			let re = /(?:\.([^.]+))?$/;
+			let path = '../icons/notes.png';
 			reader.onloadend = function(){
 				// Добавь сюда
+				let image = re.exec(file.name)[1] === "txt" ? path : reader.result;
 				let new_file_input = '<div class="input-file-list-item">' +
-					'<img class="input-file-list-img" src="' + reader.result + '" alt="">' +
+					'<img class="input-file-list-img" src="' + image + '" alt="">' +
 					'<span class="input-file-list-name">' + file.name + '</span>' +
 					'<a href="#" onclick="removeFilesItem(this); return false;" class="input-file-list-remove">x</a>' +
 				'</div>';
@@ -155,8 +159,8 @@ function submitFunc()
 					var url = URL.createObjectURL(blob);
 					var img = new Image();
 					img.src = url;
-					img.style.width = "100%";
-					img.style.height = "100%";
+					img.style.width = "auto";
+					img.style.height = "75%";
 					resultArea.appendChild(img);
 				}
 				var metricsArea = document.getElementsByClassName("MetricArea")[0];
