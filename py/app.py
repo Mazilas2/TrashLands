@@ -12,11 +12,13 @@ app = Flask(__name__)
 def upload_file():
     # Get data from body
     file_data = request.get_data()
-    result = Predict(file_data)
+    result, coordsBoxes = Predict(file_data)
     imgs = []
-    for img in result:
-        imgs.append(img)
-    return jsonify(imgs)
+    json_result = {
+        "result": result,
+        "coordsBoxes": coordsBoxes
+    }
+    return jsonify(json_result)
 
 @app.route('/uploadAnnot', methods=['POST'])
 def upload_annot():

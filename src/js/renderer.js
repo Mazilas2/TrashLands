@@ -3,6 +3,7 @@ const { spawn } = require('child_process');
 
 var submitButton;
 var dt = new DataTransfer();
+var coords = [];
 
 onload = function() 
 {
@@ -101,7 +102,10 @@ function submitFunc()
 		})
 		.then(response => response.json())
 		.then(data => {
-			var images = data;
+			var images = data["result"];
+			// save coords as global variable
+			coords = data["coordsBoxes"];
+			console.log(coords);
 			var resultArea = document.getElementById("resultArea");
 			while (resultArea.firstChild) {
 				resultArea.removeChild(resultArea.firstChild);

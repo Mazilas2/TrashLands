@@ -106,6 +106,7 @@ def Predict(filePaths):
     # Convert images to base64 strings
     # Set result images to images
     result = []
+    coordsBoxes = []
     for i, img in enumerate(images):
         boxes = results[i].boxes.xyxy
         probs = results[i].boxes.conf
@@ -116,11 +117,12 @@ def Predict(filePaths):
             xA = int(coords[0])
             yB = int(coords[3])
             yA = int(coords[1])
+            coordsBoxes.append({filePaths[i]: [xA, yA, xB, yB]})
             cv.rectangle(img, (xA, yA), (xB, yB), (0, 255, 0), 2)
             cv.putText(img, str(str(probs[j].tolist())[0:4]), (xA, yA - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         # Convert image to base64 string
         result.append(convertImg(img))
-    return result
+    return result, coordsBoxes
 
 def PredictAnnot(filePaths):
     filePaths = decodeFilepaths(filePaths)
