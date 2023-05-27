@@ -50,7 +50,6 @@ function funcAddFiles()
 			let re = /(?:\.([^.]+))?$/;
 			let path = '../icons/notes.png';
 			reader.onloadend = function(){
-				// Добавь сюда
 				let image = re.exec(file.name)[1] === "txt" ? path : reader.result;
 				let new_file_input = '<div class="input-file-list-item">' +
 					'<img class="input-file-list-img" src="' + image + '" alt="">' +
@@ -109,6 +108,16 @@ function submitFunc()
 			var images = data["result"];
 			// save coords as global variable
 			coords = data["coordsBoxes"];
+			// save coords in txt file
+			var coordsTxt = "";
+			for (let i = 0; i < coords.length; i++) {
+				coordsTxt += JSON.stringify(coords[i]) + "\n";
+			}
+			var fs = require('fs');
+			fs.appendFile('coords.txt', coordsTxt, function (err) {
+				if (err) throw err;
+				console.log('Saved!');
+			});
 			console.log(coords);
 			var resultArea = document.getElementById("resultArea");
 			while (resultArea.firstChild) {
