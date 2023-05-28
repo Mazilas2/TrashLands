@@ -2,3 +2,4 @@ node_modules/
 dist/
 py/Water Trash Dataset/
 venv/
+coords.txt
