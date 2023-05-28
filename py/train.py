@@ -1,9 +1,7 @@
 import cv2 as cv
 import numpy as np
-from flask import Flask, request, jsonify
 import json
 import base64
-from PIL import Image
 from ultralytics import YOLO
 import statistics
 
@@ -29,7 +27,6 @@ def calculateMetrics(annots, results):
         yolo_boxes.append(boxes)
     yolo_boxes = np.array(yolo_boxes)
     annots = np.array(annots)
-    # Calculate TP, FP, FN
     TP = 0
     FP = 0
     FN = 0
@@ -51,7 +48,6 @@ def calculateMetrics(annots, results):
                 xA2 = int(annot[0])
                 yB2 = int(annot[3])
                 yA2 = int(annot[1])
-                # Calculate IoU
                 # Calculate intersection
                 xA_intersect = max(xA, xA2)
                 yA_intersect = max(yA, yA2)
@@ -85,9 +81,6 @@ def calculateMetrics(annots, results):
         #print("TP: ", TP)
         #print("FP: ", FP)
         #print("FN: ", FN)
-    # Precision = mean of all TP / (TP + FP)
-    # Recall = mean of all TP / (TP + FN)
-    # F1 = 2 * (Precision * Recall) / (Precision + Recall)
     Precision = statistics.mean(PrecisionList)
     Recall = statistics.mean(RecallList)
     F1 = statistics.mean(F1List)
@@ -101,10 +94,7 @@ def Predict(filePaths):
     for filePath in filePaths:
         image = cv.imread(filePath)
         images.append(image)
-    # Predict
     results = model(images)
-    # Convert images to base64 strings
-    # Set result images to images
     result = []
     coordsBoxes = []
     for i, img in enumerate(images):
@@ -119,7 +109,10 @@ def Predict(filePaths):
             yA = int(coords[1])
             coordsBoxes.append({filePaths[i]: [xA, yA, xB, yB]})
             cv.rectangle(img, (xA, yA), (xB, yB), (0, 255, 0), 2)
-            cv.putText(img, str(str(probs[j].tolist())[0:4]), (xA, yA - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            cv.putText(img, 
+                       str(str(probs[j].tolist())[0:4]), 
+                       (xA, yA - 10), 
+                       cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         # Convert image to base64 string
         result.append(convertImg(img))
     return result, coordsBoxes
@@ -160,13 +153,11 @@ def PredictAnnot(filePaths):
         elif filePath.endswith('.jpg'):
             image = cv.imread(filePath)
             images.append(image)
-    # Predict
     results = model(images)
     result = []
     for i, img in enumerate(images):
         boxes = results[i].boxes.xyxy
         probs = results[i].boxes.conf
-        # Append bounding box coordinates to image
         for j, box in enumerate(boxes):
             coords = box.tolist()
             xB = int(coords[2])

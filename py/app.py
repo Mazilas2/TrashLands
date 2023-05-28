@@ -1,7 +1,4 @@
-import json
 from flask import Flask, request, jsonify
-from ultralytics import YOLO
-import os
 
 from train import Predict, PredictAnnot
 
