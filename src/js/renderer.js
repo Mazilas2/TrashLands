@@ -106,19 +106,20 @@ function submitFunc()
 		.then(response => response.json())
 		.then(data => {
 			var images = data["result"];
+			console.log(data["result"])
 			// save coords as global variable
 			coords = data["coordsBoxes"];
-			// save coords in txt file
+			// save coords in txt file with name of image
 			var coordsTxt = "";
 			for (let i = 0; i < coords.length; i++) {
 				coordsTxt += JSON.stringify(coords[i]) + "\n";
 			}
 			var fs = require('fs');
-			fs.appendFile('coords.txt', coordsTxt, function (err) {
+			let len = Object.keys(coords[0])[0].split('\\').length;
+			fs.writeFile('coords-' + Object.keys(coords[0])[0].split('\\')[len-1] + '.txt', coordsTxt, function (err) {
 				if (err) throw err;
 				console.log('Saved!');
 			});
-			console.log(coords);
 			var resultArea = document.getElementById("resultArea");
 			while (resultArea.firstChild) {
 				resultArea.removeChild(resultArea.firstChild);

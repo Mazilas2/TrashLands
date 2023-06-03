@@ -19,7 +19,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
-    
+    win.removeMenu();
     win.loadURL(
         url.format({
         pathname: path.join(__dirname, '../html/index.html'),
