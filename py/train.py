@@ -25,8 +25,7 @@ def calculateMetrics(annots, results):
         boxes = result.boxes.xyxy
         boxes = boxes.tolist()
         yolo_boxes.append(boxes)
-    yolo_boxes = np.array(yolo_boxes)
-    annots = np.array(annots)
+    print(yolo_boxes)
     TP = 0
     FP = 0
     FN = 0
