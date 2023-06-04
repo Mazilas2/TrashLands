@@ -19,6 +19,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
+    win.setIcon(path.join(__dirname, '../icons/appIcon.ico'));
     win.removeMenu();
     win.loadURL(
         url.format({
